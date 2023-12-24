@@ -129,3 +129,17 @@ func InitTapiCommonPortDirection() TapiCommonPortDirection {
 		UndefinedUnknow: "UNIDENTIFIED_OR_UNKNOWN",
 	}
 }
+
+type TapiCommonForwardingDirection struct {
+	Bidirectional   string
+	Uniderectional  string
+	UndefinedUnknow string
+}
+
+func InitTapiCommonForwardingDirection() TapiCommonForwardingDirection {
+	return TapiCommonForwardingDirection{
+		Bidirectional:   "BIDIRECTIONAL",
+		Uniderectional:  "UNIDIRECTIONAL",
+		UndefinedUnknow: "UNIDENTIFIED_OR_UNKNOWN",
+	}
+}
