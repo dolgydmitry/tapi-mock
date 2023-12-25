@@ -18,3 +18,8 @@ type TapiTopologyLatencyCharacteristic struct {
 	WanderCharacteristic        string `json:"wander-characteristic"`
 	QueingLatencyCharacteristic string `json:"queing-latency-characteristic"`
 }
+
+type TapiCommonTimeRange struct {
+	EndTime   string `json:"end-time"`
+	StartTime string `json:"start-time"`
+}

@@ -9,16 +9,24 @@ import (
 	"path/filepath"
 	"runtime"
 	"tapi-controller/models"
+
+	"github.com/spf13/viper"
 )
 
 const (
 	dbDataPath = "/db_data/context.json"
+	configPath = "."
 )
 
 var (
 	_, b, _, _ = runtime.Caller(0)
 	basepath   = filepath.Dir(b)
 )
+
+type Config struct {
+	Address string `mapstructure:"SERVER_ADDRESS"`
+	Port    int    `mapstructure:"SERVER_PORT"`
+}
 
 type InMemoryDb struct {
 	TapiCommonOperationalState     models.TapiCommonOperationalState
@@ -61,4 +69,20 @@ func InitMemoryDb() InMemoryDb {
 	log.Println("In memroy DB created")
 	return res
 
+}
+
+func LoadConfig() (config Config, err error) {
+	log.Println("Start to load config")
+	viper.AddConfigPath(configPath)
+	viper.SetConfigName(".env")
+	viper.SetConfigType("env")
+
+	viper.AutomaticEnv()
+	err = viper.ReadInConfig()
+	if err != nil {
+		return
+	}
+	log.Println("config loaded")
+	err = viper.Unmarshal(&config)
+	return
 }

@@ -12,8 +12,9 @@ type TapiTopologyTopologyContext struct {
 }
 
 type TapiCommonContext struct {
-	Name                  []TapiCommonNameAndValue    `json:"name"`
-	Uuid                  string                      `json:"uuid"`
-	TopologyContext       TapiTopologyTopologyContext `json:"topology-context"`
-	ServiceInterfacePoint []TapiCommonContextServiceInterfacePoint
+	Name                  []TapiCommonNameAndValue                 `json:"name"`
+	Uuid                  string                                   `json:"uuid"`
+	TopologyContext       TapiTopologyTopologyContext              `json:"topology-context"`
+	ServiceInterfacePoint []TapiCommonContextServiceInterfacePoint `json:"service-interface-point"`
+	ConnectivityContext   TapiConnectivityConnectivityContext      `json:"connectivity-context"`
 }
