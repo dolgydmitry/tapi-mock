@@ -2,6 +2,7 @@ package utils
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"log"
@@ -9,7 +10,9 @@ import (
 	"path/filepath"
 	"runtime"
 	"tapi-controller/models"
+	"tapi-controller/token"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/spf13/viper"
 )
 
@@ -24,8 +27,12 @@ var (
 )
 
 type Config struct {
-	Address string `mapstructure:"SERVER_ADDRESS"`
-	Port    int    `mapstructure:"SERVER_PORT"`
+	Address            string `mapstructure:"SERVER_ADDRESS"`
+	Port               int    `mapstructure:"SERVER_PORT"`
+	Usewrname          string `mapstructure:"USERNAME"`
+	Password           string `mapstructure:"PASSWORD"`
+	PrivateKeyFilename string `mapstructure:"PRIVATE_KEY_FILENAME"`
+	PublicKeyFilename  string `mapstructure:"PUBLIC_KEY_FILENAME"`
 }
 
 type InMemoryDb struct {
@@ -85,4 +92,69 @@ func LoadConfig() (config Config, err error) {
 	log.Println("config loaded")
 	err = viper.Unmarshal(&config)
 	return
+}
+
+func LoadConfigForTest() (config Config, err error) {
+	log.Println("Start to load config")
+	viper.AddConfigPath(configPath)
+	viper.SetConfigName("../.env")
+	viper.SetConfigType("env")
+
+	viper.AutomaticEnv()
+	err = viper.ReadInConfig()
+	if err != nil {
+		return
+	}
+	log.Println("config loaded")
+	err = viper.Unmarshal(&config)
+	return
+}
+
+func InitTokenMaker(config Config) (token.TokenMaker, error) {
+	log.Println("Load RSA keys")
+	privateKeyPath := fmt.Sprintf("%s/keys/%s", basepath, config.PrivateKeyFilename)
+	publicKeyPath := fmt.Sprintf("%s/keys/%s", basepath, config.PublicKeyFilename)
+
+	prKeyFile, err := os.Open(privateKeyPath)
+	if err != nil {
+		message := fmt.Sprintf("cannot open file: %s, with error: %x", privateKeyPath, err)
+		log.Println(message)
+		return nil, errors.New(message)
+	}
+	prKeybytes, err := io.ReadAll(prKeyFile)
+	if err != nil {
+		message := fmt.Sprintf("cannot read file: %s, with error: %x", privateKeyPath, err)
+		log.Println(message)
+		return nil, errors.New(message)
+	}
+	prKey, err := jwt.ParseRSAPrivateKeyFromPEM(prKeybytes)
+	if err != nil {
+		message := fmt.Sprintf("cannot parse file: %s, with error: %x", privateKeyPath, err)
+		log.Println(message)
+		return nil, errors.New(message)
+	}
+	log.Println("loaded private key")
+	pubKeyFile, err := os.Open(publicKeyPath)
+	if err != nil {
+		message := fmt.Sprintf("cannot open file: %s, with error: %x", publicKeyPath, err)
+		log.Println(message)
+		return nil, errors.New(message)
+	}
+	pubKeybytes, err := io.ReadAll(pubKeyFile)
+	if err != nil {
+		message := fmt.Sprintf("cannot read file: %s, with error: %x", publicKeyPath, err)
+		log.Println(message)
+		return nil, errors.New(message)
+	}
+	pubKey, err := jwt.ParseRSAPublicKeyFromPEM(pubKeybytes)
+	if err != nil {
+		message := fmt.Sprintf("cannot parse file: %s, with error: %x", publicKeyPath, err)
+		log.Println(message)
+		return nil, errors.New(message)
+	}
+	log.Println("loaded public key")
+	return &token.JwtMaker{
+		PrivateKey: prKey,
+		PublicKey:  pubKey,
+	}, nil
 }

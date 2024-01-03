@@ -13,7 +13,7 @@ const (
 	NodeNotFoundErr     = "node not found"
 )
 
-func GetAllNode(ctx context.Context, topologyUuid string, db utils.InMemoryDb) ([]models.TapiTopologyNode, error) {
+func GetAllNode(ctx context.Context, topologyUuid string, db *utils.InMemoryDb) ([]models.TapiTopologyNode, error) {
 	select {
 	case <-ctx.Done():
 		return []models.TapiTopologyNode{}, ctx.Err()
@@ -31,7 +31,7 @@ func GetAllNode(ctx context.Context, topologyUuid string, db utils.InMemoryDb) (
 	}
 }
 
-func GetNodeUuid(ctx context.Context, topologyUuid string, nodeUuid string, db utils.InMemoryDb) (models.TapiTopologyNode, error) {
+func GetNodeUuid(ctx context.Context, topologyUuid string, nodeUuid string, db *utils.InMemoryDb) (models.TapiTopologyNode, error) {
 	select {
 	case <-ctx.Done():
 		return models.TapiTopologyNode{}, ctx.Err()

@@ -1,9 +1,9 @@
 package models
 
 type TapiTopologyLink struct {
-	OperationalState                     TapiCommonOperationalState          `json:"operational-state"`
-	LifecycleState                       TapiCommonLifecycleState            `json:"lifecycle-state"`
-	AdministrativeState                  TapiCommonAdministrativeState       `json:"administrative-state"`
+	OperationalState                     string                              `json:"operational-state"`
+	LifecycleState                       string                              `json:"lifecycle-state"`
+	AdministrativeState                  string                              `json:"administrative-state"`
 	AvailableCapacity                    TapiCommonCapacity                  `json:"available-capacity"`
 	TotalPotentialCapacity               TapiCommonCapacity                  `json:"total-potential-capacity"`
 	Name                                 []TapiCommonNameAndValue            `json:"name"`

@@ -7,7 +7,7 @@ import (
 	"tapi-controller/utils"
 )
 
-func GetContext(ctx context.Context, db utils.InMemoryDb, ctxId string) (models.TapiCommonContext, error) {
+func (*TapiCtrlInMemDB) GetContext(ctx context.Context, db utils.InMemoryDb, ctxId string) (models.TapiCommonContext, error) {
 	select {
 	case <-ctx.Done():
 		return models.TapiCommonContext{}, ctx.Err()
