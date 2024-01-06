@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"crypto/rsa"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -10,7 +11,6 @@ import (
 	"path/filepath"
 	"runtime"
 	"tapi-controller/models"
-	"tapi-controller/token"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/spf13/viper"
@@ -29,7 +29,7 @@ var (
 type Config struct {
 	Address            string `mapstructure:"SERVER_ADDRESS"`
 	Port               int    `mapstructure:"SERVER_PORT"`
-	Usewrname          string `mapstructure:"USERNAME"`
+	Usenrname          string `mapstructure:"USERNAME"`
 	Password           string `mapstructure:"PASSWORD"`
 	PrivateKeyFilename string `mapstructure:"PRIVATE_KEY_FILENAME"`
 	PublicKeyFilename  string `mapstructure:"PUBLIC_KEY_FILENAME"`
@@ -48,16 +48,21 @@ type InMemoryDb struct {
 	TapiCommonContext              models.TapiCommonContext
 }
 
-func InitMemoryDb() InMemoryDb {
+type Keys struct {
+	PrivateKey *rsa.PrivateKey
+	PublicKey  *rsa.PublicKey
+}
+
+func InitMemoryDb() *InMemoryDb {
 	dbDataPathRelative := fmt.Sprintf("%s%s", basepath, dbDataPath)
 	log.Println("Start to init in memory DB")
 	jsonFile, err := os.Open(dbDataPathRelative)
 	if err != nil {
-		log.Panicf("Cannot open file: %s, with error: %x", dbDataPathRelative, err)
+		log.Panicf("Cannot open file: %s, with error: %s", dbDataPathRelative, err)
 	}
 	byteJson, err := io.ReadAll(jsonFile)
 	if err != nil {
-		log.Panicf("Cannot read file: %s, with error: %x", dbDataPathRelative, err)
+		log.Panicf("Cannot read file: %s, with error: %s", dbDataPathRelative, err)
 	}
 	var context models.TapiCommonContext
 	json.Unmarshal(byteJson, &context)
@@ -74,7 +79,7 @@ func InitMemoryDb() InMemoryDb {
 		TapiCommonContext:              context,
 	}
 	log.Println("In memroy DB created")
-	return res
+	return &res
 
 }
 
@@ -110,50 +115,50 @@ func LoadConfigForTest() (config Config, err error) {
 	return
 }
 
-func InitTokenMaker(config Config) (token.TokenMaker, error) {
+func LoadKeys(config Config) (*Keys, error) {
 	log.Println("Load RSA keys")
 	privateKeyPath := fmt.Sprintf("%s/keys/%s", basepath, config.PrivateKeyFilename)
 	publicKeyPath := fmt.Sprintf("%s/keys/%s", basepath, config.PublicKeyFilename)
 
 	prKeyFile, err := os.Open(privateKeyPath)
 	if err != nil {
-		message := fmt.Sprintf("cannot open file: %s, with error: %x", privateKeyPath, err)
+		message := fmt.Sprintf("cannot open file: %s, with error: %s", privateKeyPath, err)
 		log.Println(message)
 		return nil, errors.New(message)
 	}
 	prKeybytes, err := io.ReadAll(prKeyFile)
 	if err != nil {
-		message := fmt.Sprintf("cannot read file: %s, with error: %x", privateKeyPath, err)
+		message := fmt.Sprintf("cannot read file: %s, with error: %s", privateKeyPath, err)
 		log.Println(message)
 		return nil, errors.New(message)
 	}
 	prKey, err := jwt.ParseRSAPrivateKeyFromPEM(prKeybytes)
 	if err != nil {
-		message := fmt.Sprintf("cannot parse file: %s, with error: %x", privateKeyPath, err)
+		message := fmt.Sprintf("cannot parse file: %s, with error: %s", privateKeyPath, err)
 		log.Println(message)
 		return nil, errors.New(message)
 	}
 	log.Println("loaded private key")
 	pubKeyFile, err := os.Open(publicKeyPath)
 	if err != nil {
-		message := fmt.Sprintf("cannot open file: %s, with error: %x", publicKeyPath, err)
+		message := fmt.Sprintf("cannot open file: %s, with error: %s", publicKeyPath, err)
 		log.Println(message)
 		return nil, errors.New(message)
 	}
 	pubKeybytes, err := io.ReadAll(pubKeyFile)
 	if err != nil {
-		message := fmt.Sprintf("cannot read file: %s, with error: %x", publicKeyPath, err)
+		message := fmt.Sprintf("cannot read file: %s, with error: %s", publicKeyPath, err)
 		log.Println(message)
 		return nil, errors.New(message)
 	}
 	pubKey, err := jwt.ParseRSAPublicKeyFromPEM(pubKeybytes)
 	if err != nil {
-		message := fmt.Sprintf("cannot parse file: %s, with error: %x", publicKeyPath, err)
+		message := fmt.Sprintf("cannot parse file: %s, with error: %s", publicKeyPath, err)
 		log.Println(message)
 		return nil, errors.New(message)
 	}
 	log.Println("loaded public key")
-	return &token.JwtMaker{
+	return &Keys{
 		PrivateKey: prKey,
 		PublicKey:  pubKey,
 	}, nil

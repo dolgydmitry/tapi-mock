@@ -17,7 +17,7 @@ func main() {
 	if err != nil {
 		log.Panicf("cannot load config, err: %x", err)
 	}
-	server, err := server.InitServer(config, &inMemoryDB)
+	server, err := server.InitServer(config, inMemoryDB)
 	if err != nil {
 		log.Panicf("cannot initilaize server, err: %x", err)
 	}

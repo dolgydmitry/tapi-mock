@@ -24,7 +24,7 @@ func TestGetAllNode(T *testing.T) {
 			name: "Good day",
 			ctx:  ctx,
 			uuid: "top-tpd",
-			db:   &inMemoryDB,
+			db:   inMemoryDB,
 			checker: func(t *testing.T, res []models.TapiTopologyNode, err error) {
 				require.NoError(t, err)
 				require.NotEmpty(t, res)
@@ -35,7 +35,7 @@ func TestGetAllNode(T *testing.T) {
 			name: "Not found",
 			ctx:  ctx,
 			uuid: "temp",
-			db:   &inMemoryDB,
+			db:   inMemoryDB,
 			checker: func(t *testing.T, res []models.TapiTopologyNode, err error) {
 				require.EqualError(t, err, TopologyNotFoundErr)
 				require.Len(t, res, 0)
@@ -62,7 +62,7 @@ func TestGetNodeUuid(T *testing.T) {
 		{
 			name:     "good day",
 			ctx:      ctx,
-			db:       &inMemoryDB,
+			db:       inMemoryDB,
 			topoUuid: "top-tpd",
 			nodeUuid: "node-tpd-1",
 			checker: func(t *testing.T, res models.TapiTopologyNode, err error) {
@@ -75,7 +75,7 @@ func TestGetNodeUuid(T *testing.T) {
 		{
 			name:     "topo not found",
 			ctx:      ctx,
-			db:       &inMemoryDB,
+			db:       inMemoryDB,
 			topoUuid: "temp",
 			nodeUuid: "node-tpd-1",
 			checker: func(t *testing.T, res models.TapiTopologyNode, err error) {
@@ -86,7 +86,7 @@ func TestGetNodeUuid(T *testing.T) {
 		{
 			name:     "node not found",
 			ctx:      ctx,
-			db:       &inMemoryDB,
+			db:       inMemoryDB,
 			topoUuid: "top-tpd",
 			nodeUuid: "temp",
 			checker: func(t *testing.T, res models.TapiTopologyNode, err error) {

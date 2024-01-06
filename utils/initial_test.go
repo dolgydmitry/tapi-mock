@@ -1,16 +1,15 @@
 package utils
 
 import (
-	"tapi-controller/token"
 	"testing"
 
 	"github.com/stretchr/testify/require"
 )
 
-func TestInitTokenMaker(t *testing.T) {
+func TestLoadKeys(t *testing.T) {
 	config, err := LoadConfigForTest()
 	require.NoError(t, err)
-	tokenMaker, err := InitTokenMaker(config)
+	tokenMaker, err := LoadKeys(config)
 	require.NoError(t, err)
-	require.IsType(t, &token.JwtMaker{}, tokenMaker)
+	require.IsType(t, &Keys{}, tokenMaker)
 }

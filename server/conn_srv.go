@@ -48,8 +48,10 @@ func (server *Server) GetConnSrvRoute(ctx *gin.Context) {
 	if err != nil {
 		if err.Error() == controllers.ConnSrvNotFound {
 			ctx.JSON(http.StatusNotFound, errorResponse(err))
+			return
 		}
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
 	}
 	ctx.JSON(http.StatusOK, res)
 }
@@ -69,8 +71,10 @@ func (server *Server) UpdateConSrvRoute(ctx *gin.Context) {
 	if err != nil {
 		if err.Error() == controllers.ConnSrvNotFound {
 			ctx.JSON(http.StatusNotFound, errorResponse(err))
+			return
 		}
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
 	}
 	ctx.JSON(http.StatusOK, res)
 

@@ -11,21 +11,24 @@ import (
 	"net/http/httptest"
 	"tapi-controller/controllers"
 	"tapi-controller/models"
+	"tapi-controller/token"
 	"tapi-controller/utils"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/require"
 )
 
 func TestCreateConnSrvRoute(t *testing.T) {
 	inMemoryDB := utils.InitMemoryDb()
-	config, _ := utils.LoadConfig()
+	config, _ := utils.LoadConfigForTest()
 
 	testCases := []struct {
-		name    string
-		req     models.TapiCommonContext
-		pattern controllers.CreateConSrvResponse
-		checker func(t *testing.T, statusCode int, req models.TapiCommonContext, res *bytes.Buffer, pattern controllers.CreateConSrvResponse)
+		name      string
+		req       models.TapiCommonContext
+		pattern   controllers.CreateConSrvResponse
+		setupAuth func(t *testing.T, request http.Request, tokenMaker token.TokenMaker)
+		checker   func(t *testing.T, statusCode int, req models.TapiCommonContext, res *bytes.Buffer, pattern controllers.CreateConSrvResponse)
 	}{
 		{
 			name: "good day",
@@ -72,6 +75,16 @@ func TestCreateConnSrvRoute(t *testing.T) {
 				DesiredOrchState: controllers.DesiredOrchStateActive,
 				OrchState:        controllers.OrchStateRequsted,
 			},
+			setupAuth: func(t *testing.T, request http.Request, tokenMaker token.TokenMaker) {
+				addAuthoization(&addAuthParams{
+					t:                 t,
+					request:           &request,
+					tokenMaker:        tokenMaker,
+					authorizationType: authorizationTypeBearer,
+					username:          "test",
+					duration:          time.Second * 20,
+				})
+			},
 			checker: func(t *testing.T, statusCode int, req models.TapiCommonContext, res *bytes.Buffer, pattern controllers.CreateConSrvResponse) {
 				require.Equal(t, http.StatusCreated, statusCode)
 				var resObject controllers.CreateConSrvResponse
@@ -88,6 +101,16 @@ func TestCreateConnSrvRoute(t *testing.T) {
 			pattern: controllers.CreateConSrvResponse{
 				DesiredOrchState: controllers.DesiredOrchStateActive,
 				OrchState:        controllers.OrchStateRequsted,
+			},
+			setupAuth: func(t *testing.T, request http.Request, tokenMaker token.TokenMaker) {
+				addAuthoization(&addAuthParams{
+					t:                 t,
+					request:           &request,
+					tokenMaker:        tokenMaker,
+					authorizationType: authorizationTypeBearer,
+					username:          "test",
+					duration:          time.Second * 20,
+				})
 			},
 			checker: func(t *testing.T, statusCode int, req models.TapiCommonContext, res *bytes.Buffer, pattern controllers.CreateConSrvResponse) {
 				require.Equal(t, http.StatusInternalServerError, statusCode)
@@ -106,6 +129,16 @@ func TestCreateConnSrvRoute(t *testing.T) {
 				DesiredOrchState: controllers.DesiredOrchStateActive,
 				OrchState:        controllers.OrchStateRequsted,
 			},
+			setupAuth: func(t *testing.T, request http.Request, tokenMaker token.TokenMaker) {
+				addAuthoization(&addAuthParams{
+					t:                 t,
+					request:           &request,
+					tokenMaker:        tokenMaker,
+					authorizationType: authorizationTypeBearer,
+					username:          "test",
+					duration:          time.Second * 20,
+				})
+			},
 			checker: func(t *testing.T, statusCode int, req models.TapiCommonContext, res *bytes.Buffer, pattern controllers.CreateConSrvResponse) {
 				require.Equal(t, http.StatusBadRequest, statusCode)
 			},
@@ -117,7 +150,7 @@ func TestCreateConnSrvRoute(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 
 			// Create test server
-			server, err := InitServer(config, &inMemoryDB)
+			server, err := InitServer(config, inMemoryDB)
 			server.AddRoute()
 			require.NoError(t, err)
 			recorder := httptest.NewRecorder()
@@ -125,14 +158,15 @@ func TestCreateConnSrvRoute(t *testing.T) {
 
 			inputBody, err := json.Marshal(tc.req)
 			require.NoError(t, err)
-
 			if tc.name == "bad request" {
 				request, err := http.NewRequest(http.MethodPost, url, nil)
 				require.NoError(t, err)
+				tc.setupAuth(t, *request, server.token)
 				server.engine.ServeHTTP(recorder, request)
 			} else {
 				request, err := http.NewRequest(http.MethodPost, url, bytes.NewReader(inputBody))
 				require.NoError(t, err)
+				tc.setupAuth(t, *request, server.token)
 				server.engine.ServeHTTP(recorder, request)
 			}
 
@@ -143,13 +177,14 @@ func TestCreateConnSrvRoute(t *testing.T) {
 }
 
 func TestGetAllConnSrvRoute(t *testing.T) {
-	config, _ := utils.LoadConfig()
+	config, _ := utils.LoadConfigForTest()
 
 	testCases := []struct {
-		name     string
-		prepare  bool
-		testLoad models.TapiCommonContext
-		checker  func(t *testing.T, respStatusCode int, res *bytes.Buffer)
+		name      string
+		prepare   bool
+		testLoad  models.TapiCommonContext
+		setupAuth func(t *testing.T, request http.Request, tokenMaker token.TokenMaker)
+		checker   func(t *testing.T, respStatusCode int, res *bytes.Buffer)
 	}{
 		{
 			name:    "good day",
@@ -259,6 +294,16 @@ func TestGetAllConnSrvRoute(t *testing.T) {
 					},
 				},
 			},
+			setupAuth: func(t *testing.T, request http.Request, tokenMaker token.TokenMaker) {
+				addAuthoization(&addAuthParams{
+					t:                 t,
+					request:           &request,
+					tokenMaker:        tokenMaker,
+					authorizationType: authorizationTypeBearer,
+					username:          "test",
+					duration:          time.Second * 20,
+				})
+			},
 			checker: func(t *testing.T, respStatusCode int, res *bytes.Buffer) {
 				require.Equal(t, respStatusCode, http.StatusOK)
 				var resList []models.TapiConnectivityConnectivityService
@@ -275,6 +320,16 @@ func TestGetAllConnSrvRoute(t *testing.T) {
 		{
 			name:    "not found",
 			prepare: false,
+			setupAuth: func(t *testing.T, request http.Request, tokenMaker token.TokenMaker) {
+				addAuthoization(&addAuthParams{
+					t:                 t,
+					request:           &request,
+					tokenMaker:        tokenMaker,
+					authorizationType: authorizationTypeBearer,
+					username:          "test",
+					duration:          time.Second * 20,
+				})
+			},
 			checker: func(t *testing.T, respStatusCode int, res *bytes.Buffer) {
 				require.Equal(t, respStatusCode, http.StatusOK)
 				var resList []models.TapiConnectivityConnectivityService
@@ -292,9 +347,9 @@ func TestGetAllConnSrvRoute(t *testing.T) {
 			inMemoryDB := utils.InitMemoryDb()
 
 			// Create test server
-			server, err := InitServer(config, &inMemoryDB)
+			server, err := InitServer(config, inMemoryDB)
 			if tc.prepare {
-				server.tapiCtrl.CreateConSrv(context.Background(), tc.testLoad, &inMemoryDB)
+				server.tapiCtrl.CreateConSrv(context.Background(), tc.testLoad, inMemoryDB)
 			}
 			server.AddRoute()
 			require.NoError(t, err)
@@ -303,7 +358,7 @@ func TestGetAllConnSrvRoute(t *testing.T) {
 
 			request, err := http.NewRequest(http.MethodGet, url, nil)
 			require.NoError(t, err)
-
+			tc.setupAuth(t, *request, server.token)
 			server.engine.ServeHTTP(recorder, request)
 
 			// check response
@@ -314,7 +369,7 @@ func TestGetAllConnSrvRoute(t *testing.T) {
 
 func TestGetConnSrvRoute(t *testing.T) {
 	inMemoryDB := utils.InitMemoryDb()
-	config, _ := utils.LoadConfig()
+	config, _ := utils.LoadConfigForTest()
 	testLoad := models.TapiCommonContext{
 		ConnectivityContext: models.TapiConnectivityConnectivityContext{
 			ConnectivityService: []models.TapiConnectivityConnectivityService{
@@ -421,16 +476,27 @@ func TestGetConnSrvRoute(t *testing.T) {
 		},
 	}
 	ctrl := new(controllers.TapiCtrlInMemDB)
-	ctrl.CreateConSrv(context.Background(), testLoad, &inMemoryDB)
+	ctrl.CreateConSrv(context.Background(), testLoad, inMemoryDB)
 
 	testCases := []struct {
-		name    string
-		uuid    string
-		checker func(t *testing.T, uuid string, respStatusCode int, res *bytes.Buffer)
+		name      string
+		uuid      string
+		setupAuth func(t *testing.T, request http.Request, tokenMaker token.TokenMaker)
+		checker   func(t *testing.T, uuid string, respStatusCode int, res *bytes.Buffer)
 	}{
 		{
 			name: "good day",
 			uuid: "test-1",
+			setupAuth: func(t *testing.T, request http.Request, tokenMaker token.TokenMaker) {
+				addAuthoization(&addAuthParams{
+					t:                 t,
+					request:           &request,
+					tokenMaker:        tokenMaker,
+					authorizationType: authorizationTypeBearer,
+					username:          "test",
+					duration:          time.Second * 20,
+				})
+			},
 			checker: func(t *testing.T, uuid string, respStatusCode int, res *bytes.Buffer) {
 				require.Equal(t, http.StatusOK, respStatusCode)
 				var resObj models.TapiConnectivityConnectivityService
@@ -443,6 +509,16 @@ func TestGetConnSrvRoute(t *testing.T) {
 		{
 			name: "not found",
 			uuid: "wrong",
+			setupAuth: func(t *testing.T, request http.Request, tokenMaker token.TokenMaker) {
+				addAuthoization(&addAuthParams{
+					t:                 t,
+					request:           &request,
+					tokenMaker:        tokenMaker,
+					authorizationType: authorizationTypeBearer,
+					username:          "test",
+					duration:          time.Second * 20,
+				})
+			},
 			checker: func(t *testing.T, uuid string, respStatusCode int, res *bytes.Buffer) {
 				require.Equal(t, respStatusCode, http.StatusNotFound)
 			},
@@ -454,7 +530,7 @@ func TestGetConnSrvRoute(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 
 			// Create test server
-			server, err := InitServer(config, &inMemoryDB)
+			server, err := InitServer(config, inMemoryDB)
 			server.AddRoute()
 			require.NoError(t, err)
 			recorder := httptest.NewRecorder()
@@ -462,7 +538,7 @@ func TestGetConnSrvRoute(t *testing.T) {
 			url := fmt.Sprintf("/tapi-common:context/tapi-connectivity:connectivity-context/%s", tc.uuid)
 			request, err := http.NewRequest(http.MethodGet, url, nil)
 			require.NoError(t, err)
-
+			tc.setupAuth(t, *request, server.token)
 			server.engine.ServeHTTP(recorder, request)
 
 			// check response
@@ -473,7 +549,7 @@ func TestGetConnSrvRoute(t *testing.T) {
 
 func TestUpdateConSrvRoute(t *testing.T) {
 	inMemoryDB := utils.InitMemoryDb()
-	config, _ := utils.LoadConfig()
+	config, _ := utils.LoadConfigForTest()
 	testLoad := models.TapiCommonContext{
 		ConnectivityContext: models.TapiConnectivityConnectivityContext{
 			ConnectivityService: []models.TapiConnectivityConnectivityService{
@@ -580,13 +656,14 @@ func TestUpdateConSrvRoute(t *testing.T) {
 		},
 	}
 	ctrl := new(controllers.TapiCtrlInMemDB)
-	ctrl.CreateConSrv(context.Background(), testLoad, &inMemoryDB)
+	ctrl.CreateConSrv(context.Background(), testLoad, inMemoryDB)
 
 	testCases := []struct {
-		name    string
-		uuid    string
-		req     models.TapiConnectivityConnectivityServiceData
-		checker func(t *testing.T, uuid string, respStatusCode int, inputData models.TapiConnectivityConnectivityServiceData, res *bytes.Buffer)
+		name      string
+		uuid      string
+		req       models.TapiConnectivityConnectivityServiceData
+		setupAuth func(t *testing.T, request http.Request, tokenMaker token.TokenMaker)
+		checker   func(t *testing.T, uuid string, respStatusCode int, inputData models.TapiConnectivityConnectivityServiceData, res *bytes.Buffer)
 	}{
 		{
 			name: "good day",
@@ -622,6 +699,16 @@ func TestUpdateConSrvRoute(t *testing.T) {
 						Direction:              "BIDIRECTIONAL",
 					},
 				},
+			},
+			setupAuth: func(t *testing.T, request http.Request, tokenMaker token.TokenMaker) {
+				addAuthoization(&addAuthParams{
+					t:                 t,
+					request:           &request,
+					tokenMaker:        tokenMaker,
+					authorizationType: authorizationTypeBearer,
+					username:          "test",
+					duration:          time.Second * 20,
+				})
 			},
 			checker: func(t *testing.T, uuid string, respStatusCode int, inputData models.TapiConnectivityConnectivityServiceData, res *bytes.Buffer) {
 				require.Equal(t, http.StatusOK, respStatusCode)
@@ -668,6 +755,16 @@ func TestUpdateConSrvRoute(t *testing.T) {
 					},
 				},
 			},
+			setupAuth: func(t *testing.T, request http.Request, tokenMaker token.TokenMaker) {
+				addAuthoization(&addAuthParams{
+					t:                 t,
+					request:           &request,
+					tokenMaker:        tokenMaker,
+					authorizationType: authorizationTypeBearer,
+					username:          "test",
+					duration:          time.Second * 20,
+				})
+			},
 			checker: func(t *testing.T, uuid string, respStatusCode int, inputData models.TapiConnectivityConnectivityServiceData, res *bytes.Buffer) {
 				require.Equal(t, http.StatusNotFound, respStatusCode)
 			},
@@ -675,6 +772,16 @@ func TestUpdateConSrvRoute(t *testing.T) {
 		{
 			name: "bad request",
 			uuid: "test-wrong",
+			setupAuth: func(t *testing.T, request http.Request, tokenMaker token.TokenMaker) {
+				addAuthoization(&addAuthParams{
+					t:                 t,
+					request:           &request,
+					tokenMaker:        tokenMaker,
+					authorizationType: authorizationTypeBearer,
+					username:          "test",
+					duration:          time.Second * 20,
+				})
+			},
 			checker: func(t *testing.T, uuid string, respStatusCode int, inputData models.TapiConnectivityConnectivityServiceData, res *bytes.Buffer) {
 				require.Equal(t, http.StatusBadRequest, respStatusCode)
 			},
@@ -686,7 +793,7 @@ func TestUpdateConSrvRoute(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 
 			// Create test server
-			server, err := InitServer(config, &inMemoryDB)
+			server, err := InitServer(config, inMemoryDB)
 			server.AddRoute()
 			require.NoError(t, err)
 			recorder := httptest.NewRecorder()
@@ -697,7 +804,7 @@ func TestUpdateConSrvRoute(t *testing.T) {
 			url := fmt.Sprintf("/tapi-common:context/tapi-connectivity:connectivity-context/%s", tc.uuid)
 			request, err := http.NewRequest(http.MethodPatch, url, bytes.NewReader(inputBody))
 			require.NoError(t, err)
-
+			tc.setupAuth(t, *request, server.token)
 			server.engine.ServeHTTP(recorder, request)
 
 			// check response
