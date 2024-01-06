@@ -1,0 +1,19 @@
+services:
+  tapi-mock:
+    container_name: tapi-mock
+    image: tapi-controller:latest
+    environment:
+      SERVER_ADDRESS: ${SERVER_ADDRESS}
+      SERVER_PORT: ${SERVER_PORT}
+      USERNAME: ${USERNAME}
+      PASSWORD: ${PASSWORD}
+      PRIVATE_KEY_FILENAME: ${PRIVATE_KEY_FILENAME}
+      PUBLIC_KEY_FILENAME: ${PUBLIC_KEY_FILENAME}
+    volumes:
+      - ./utils/keys:/app/utils/keys
+      - ./utils/db_data:/app/utils/db_data
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+
+volumes:
+  bank-backend-volume:

@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	myFigure := figure.NewColorFigure("TAPI simulator", "", "yellow", true)
+	myFigure := figure.NewColorFigure("TAPI MOCK", "", "yellow", true)
 	myFigure.Print()
 
 	inMemoryDB := utils.InitMemoryDb()
