@@ -24,12 +24,12 @@ type CreateConSrvResponse struct {
 func (*TapiCtrlInMemDB) CreateConSrv(ctx context.Context, data models.TapiCommonContext, db *utils.InMemoryDb) (CreateConSrvResponse, error) {
 	select {
 	case <-ctx.Done():
-		log.Printf("cannot create new conn-srv, err: %x", ctx.Err())
+		log.Printf("cannot create new conn-srv, err: %s", ctx.Err())
 		return CreateConSrvResponse{}, ctx.Err()
 	default:
 		if len(data.ConnectivityContext.ConnectivityService) == 0 {
 			err := errors.New(EmptyConnSrvList)
-			log.Printf("cannot create new conn-srv, err: %x", err)
+			log.Printf("cannot create new conn-srv, err: %s", err)
 			return CreateConSrvResponse{}, err
 		}
 		log.Println("create new connective-service")
@@ -45,7 +45,7 @@ func (*TapiCtrlInMemDB) CreateConSrv(ctx context.Context, data models.TapiCommon
 func (*TapiCtrlInMemDB) GetAllConSrv(ctx context.Context, db *utils.InMemoryDb) ([]models.TapiConnectivityConnectivityService, error) {
 	select {
 	case <-ctx.Done():
-		log.Printf("cannot get all connective-services, err: %x", ctx.Err())
+		log.Printf("cannot get all connective-services, err: %s", ctx.Err())
 		return []models.TapiConnectivityConnectivityService{}, ctx.Err()
 	default:
 		log.Println("get all connective-services")
@@ -56,7 +56,7 @@ func (*TapiCtrlInMemDB) GetAllConSrv(ctx context.Context, db *utils.InMemoryDb) 
 func (*TapiCtrlInMemDB) GetConSrv(ctx context.Context, db *utils.InMemoryDb, uuid string) (models.TapiConnectivityConnectivityService, error) {
 	select {
 	case <-ctx.Done():
-		log.Printf("cannot get connective-service by uuid: %s, err: %x", uuid, ctx.Err())
+		log.Printf("cannot get connective-service by uuid: %s, err: %s", uuid, ctx.Err())
 		return models.TapiConnectivityConnectivityService{}, ctx.Err()
 	default:
 		log.Printf("get connective-service by uuid: %s", uuid)
@@ -72,7 +72,7 @@ func (*TapiCtrlInMemDB) GetConSrv(ctx context.Context, db *utils.InMemoryDb, uui
 func (*TapiCtrlInMemDB) UpdateConSrv(ctx context.Context, db *utils.InMemoryDb, uuid string, data models.TapiConnectivityConnectivityServiceData) (models.TapiConnectivityConnectivityService, error) {
 	select {
 	case <-ctx.Done():
-		log.Printf("cannot update connective-service by uuid: %s, err: %x", uuid, ctx.Err())
+		log.Printf("cannot update connective-service by uuid: %s, err: %s", uuid, ctx.Err())
 		return models.TapiConnectivityConnectivityService{}, ctx.Err()
 	default:
 		log.Printf("update connective-service by uuid: %s", uuid)
