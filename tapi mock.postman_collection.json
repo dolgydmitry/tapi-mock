@@ -1,0 +1,208 @@
+{
+	"info": {
+		"_postman_id": "230596b5-5401-4be0-b591-be9639ad0dd5",
+		"name": "tapi mock",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8375050"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"test\",\n    \"password\": \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/login/",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get conn-srv all",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRmNGYwMGJmLTYzODYtNDg3My1hNzBhLTg3NWNiMWI1ZDU1YyIsInVzZXJuYW1lIjoidGVzdCIsImlzc3VlZF9hdCI6IjIwMjQtMDEtMDdUMTQ6MjA6MzkuMzg0MTA1NDU5WiIsImV4cGlyZWRfYXQiOiIyMDI0LTAxLTA3VDE0OjIzOjM5LjM4NDEwNTU0MloifQ.scnd9af0cgbfFdRGl0yOOD-npepb4ubDBmG5-af80UPXtgSGDejCLtEyx4z4qP1naeC2AgtQ4FANdzKxMqKq2_xlMs1Y6MIZf4HHcYiTaWDVRumaqHFNMlmI0VGv1FgkjGJsSMHp5_vHZielmjvBn1bh4-41yqQVFZSTgK8xaMtCDrxG7ptZq4kqgmes3FLPs_7LiEqx3SZ59bq_nqh3bRSAujvUqJcZIlCmMsIsx_qoLCGK0yDofMO95n3sVjTg0dOhaYn1cdqau0BY5JqhTL2tdfxzURsBP-T1XuLS_d0G61_5Gbg0MJyhs1Hh57Z7EBaslKPDzdMcbiAw5TI_u2shAlbAI2KYuIBJUJ6R4n3rfc5RtWpP22Kf37CKU6VdwLx3MjMaoYKtx-dTS_DPrHSrGuZ99Bw474u7PMJzh3ODjsJ9SgBgOmRDvt1VlP-po6xhmWl-7ss7m1VvtxrjmaC25fK3PVUTxV5yUXk5F9vQl5QFjrmygwHy4ci_MM4fgPh_UCIt8fSg4ZxMMugVfkCGIf_31tiUb2DLDnWHfHqvNuRDixvJZw9bP-2qT80U7eFzVIXt3PPhGlOIxDVIzhoHBNGDG2MElIFIxQW6jnBKtqls-fqWCLdMaO_oWXPCX2aK40qCCujIZZc3Yonq9PkuwrhOLz07qtajWja70NI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/tapi-common:context/tapi-connectivity:connectivity-context/",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"tapi-common:context",
+						"tapi-connectivity:connectivity-context",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get conn-srv by uuid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImYxZjE0N2I1LTdkMWEtNGRjNC05YzY3LTczMjFiMjAyNmY2OSIsInVzZXJuYW1lIjoidGVzdCIsImlzc3VlZF9hdCI6IjIwMjQtMDEtMDdUMTU6MDE6MjcuNTY4MTgwMzc3WiIsImV4cGlyZWRfYXQiOiIyMDI0LTAxLTA3VDE1OjA0OjI3LjU2ODE4MDUwMloifQ.PlMHO_MO1jHxuQ5LnMaLgE5F5wd8LIgloxcTGKNuj0lUcLsOsUT7kAa3pT2AHO_YSPWcitlu-dA4FUotxP9hpvZPAHtRnKzsYmquFzC2MujD338dcizyjd4S97Ws1PCm8dtAy3RFt4GYrJTJFF66vkk5aJC5-O4rIV88ucRmGRf_Pq70G7UxVvBFsm5wgLlCFcoNPhWIxtr0JUI25fSYWB3KDvHtHO414G0TFQ33R3QKMc3wX_QC621NlI_6iBcJ1TyHMcZDHHxd7tBvP6QQIiBnnTiWnw3Vpm22OXMUnoUsS82uVtf_KXNF3dgajiGqIif25l17kceHIfzK6I5jB39RosWlxhCpqnY2KUwQ0MFCB7sSF7jHzFO9vdc-W_fcoYjzju-FXxax4kzoaUM7NMXlMr2E5ZjrYkXbrtSRiPI9Gek-RMaXALNJ2YSEd6AQL0O3YHn_-ZmR65DOo_jJn1CdauVUq3SbPxFswe6PzPbpnWOJnmRcw08GlixKMG0__yjFJBtkwGBb6C8AO0RLdw48mONpPwrh3y1-85910dDmmqwuzCk76xhKkXjaPSCujTq3apnmR9spJuZzJPggqI8zUWzjRBMYIOsdg3Bw7SEUnESmLlb2YRwyIwAA5NT9WagxVlHKCsWpKtWmoBmx1sgwo-xsWzfqYM-v9tAcBDU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/tapi-common:context/tapi-connectivity:connectivity-context/test-1",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"tapi-common:context",
+						"tapi-connectivity:connectivity-context",
+						"test-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add conn-srv all",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ5ZWY0NzMzLWEzN2ItNDM4Zi1hMjdkLTBiOWQzN2I5Y2IyZSIsInVzZXJuYW1lIjoidGVzdCIsImlzc3VlZF9hdCI6IjIwMjQtMDEtMDdUMTQ6NTc6NDMuODY3NzAzNTAzWiIsImV4cGlyZWRfYXQiOiIyMDI0LTAxLTA3VDE1OjAwOjQzLjg2NzcwMzY2OVoifQ.gurPt8hdxme5If-pkHrCC9tpqi2B7W_JG_hB6ZBIQF_HNmUa7bGf0puQ_gXu7aMN5KtmZ4YRe5v4cJZ2avbuKzISTihO9sK6xbTyH1vFkZB7SWXlGH74nvIQmU1cdnXbdeP1wxUP6BaQV7VERTi8lz3PqFZqs9yh87klAfNpRKDcxCNSEOC53iNChqaOuz_1HIfQQiNHjWVUn-4Xb5V_dI8uHc2N98AnUcGD0ljcGmJc7wu6NfNnxfDJK3k74JWFDv9XHyxxnzaOUPpSwvIk1R1xBVOVPfoN2tfijhPJap59Fe1Bvp4WSmwEAzR0EsoeAKh_9NYyTTnphR_lXHYdI3fME_xU0wofTJHONPVmoTwMCCijIc6f5SkI5jbb3AhTnzASazqWrNytyFg57CqozhUG31hxlfQ0wf-spw58KyVOTEsjm4zYeGs6uO1U_0-kWdmx-5bddwBCng6-9kvcyeZyeBADrnWty9pn3smLXf8XoJHqsu3xmwuO4wYtyIeiJRzYPnZmXaC_FOlysU1wNpm3gQHFbMqRwClC7ZcItOivSF67A5zRc8lwyhd5LsZUe_WtBdnqEFwsays9l_FtaWCEUSjsxw_Od9wZ4Zk28JlFleJFnO1XsQcTwrSn1d0uil7dhH2FQ-x4b-qcV5LtrhpzwYFdbcU3MRDNtEUen_0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": null,\n    \"uuid\": \"\",\n    \"topology-context\": {\n        \"nw-topology-service\": {\n            \"name\": null,\n            \"uuid\": \"\",\n            \"topology\": null\n        },\n        \"topology\": null\n    },\n    \"service-interface-point\": null,\n    \"tapi-connectivity:connectivity-context\": {\n        \"connectivity-service\": [\n            {\n                \"operational-state\": \"\",\n                \"lifecycle-state\": \"\",\n                \"administrative-state\": \"UNLOCKED\",\n                \"name\": [\n                    {\n                        \"value-name\": \"SERVICE_NAME\",\n                        \"value\": \"linevo-Iskitim-100G\"\n                    }\n                ],\n                \"uuid\": \"test-1\",\n                \"service-layer\": \"DSR\",\n                \"schedule\": {\n                    \"end-time\": \"\",\n                    \"start-time\": \"\"\n                },\n                \"connectivity-direction\": \"BIDIRECTIONAL\",\n                \"requested-capacity\": {\n                    \"bandwidth-profile\": {\n                        \"committed-information-rate\": {\n                            \"value\": 0,\n                            \"unit\": \"\"\n                        },\n                        \"coupling-flag\": false,\n                        \"bw-profile-type\": \"\",\n                        \"peak-information-rate\": {\n                            \"value\": 0,\n                            \"unit\": \"\"\n                        },\n                        \"committed-burst-size\": {\n                            \"value\": 0,\n                            \"unit\": \"\"\n                        },\n                        \"peak-burst-size\": {\n                            \"value\": 0,\n                            \"unit\": \"\"\n                        },\n                        \"color-aware\": false\n                    },\n                    \"total-size\": {\n                        \"value\": 0,\n                        \"unit\": \"\"\n                    }\n                },\n                \"diversity-exclusion\": null,\n                \"service-level\": \"\",\n                \"service-type\": \"POINT_TO_POINT_CONNECTIVITY\",\n                \"coroute-inclusion\": {\n                    \"connectivity-service-uuid\": \"\"\n                },\n                \"is-lock-out\": false,\n                \"MaxSwitchTimes\": 0,\n                \"restoration-coordinate-type\": \"\",\n                \"is-coordinated-switching-both-ends\": false,\n                \"hold-off-time\": 0,\n                \"is-frozen\": false,\n                \"wait-to-revert-time\": 0,\n                \"resilience-type\": {\n                    \"restoration-policy\": \"\",\n                    \"protection-type\": \"\"\n                },\n                \"preferred-restoration-layer\": null,\n                \"restore-priority\": 0,\n                \"reversion-mode\": \"\",\n                \"is-exclusive\": false,\n                \"diversity-policy\": \"\",\n                \"route-objective-function\": \"\",\n                \"cost-characteristic\": null,\n                \"latency-characteristic\": null,\n                \"risk-diversity-characteristic\": null,\n                \"route-direction\": \"\",\n                \"include-node\": null,\n                \"exclude-link\": null,\n                \"avoid-topology\": null,\n                \"exclude-path\": null,\n                \"include-link\": null,\n                \"preferred-transport-layer\": \"\",\n                \"exclude-node\": null,\n                \"include-topology\": null,\n                \"include-path\": null,\n                \"end-point\": [\n                    {\n                        \"operational-state\": {\n                            \"Disable\": \"\",\n                            \"Enable\": \"\"\n                        },\n                        \"lifecycle-state\": {\n                            \"Planned\": \"\",\n                            \"PotentialAvaiable\": \"\",\n                            \"PotentialBusy\": \"\",\n                            \"Installed\": \"\",\n                            \"PendingRemoval\": \"\"\n                        },\n                        \"administrative-state\": {\n                            \"Locked\": \"\",\n                            \"Unlocked\": \"\"\n                        },\n                        \"name\": null,\n                        \"local-id\": \"\",\n                        \"protection-role\": \"\",\n                        \"role\": \"SYMMETRIC\",\n                        \"service-interface-point\": {\n                            \"service-interface-point-uuid\": \"test-ref-endpoint-a\"\n                        },\n                        \"layer-protocol-name\": \"DSR\",\n                        \"layer-protocol-qualifier\": \"tapi-dsr:DIGITAL_SIGNAL_TYPE_10_GigE_LAN\",\n                        \"connection-end-point\": null,\n                        \"direction\": \"BIDIRECTIONAL\",\n                        \"capacity\": {\n                            \"bandwidth-profile\": {\n                                \"committed-information-rate\": {\n                                    \"value\": 0,\n                                    \"unit\": \"\"\n                                },\n                                \"coupling-flag\": false,\n                                \"bw-profile-type\": \"\",\n                                \"peak-information-rate\": {\n                                    \"value\": 0,\n                                    \"unit\": \"\"\n                                },\n                                \"committed-burst-size\": {\n                                    \"value\": 0,\n                                    \"unit\": \"\"\n                                },\n                                \"peak-burst-size\": {\n                                    \"value\": 0,\n                                    \"unit\": \"\"\n                                },\n                                \"color-aware\": false\n                            },\n                            \"total-size\": {\n                                \"value\": 0,\n                                \"unit\": \"\"\n                            }\n                        },\n                        \"media-channel-service-interface-point-spec\": {\n                            \"mc-pool\": {\n                                \"available-spectrum\": null,\n                                \"supportable-spectrum\": null,\n                                \"occupied-spectrum\": null\n                            }\n                        },\n                        \"otsi-connectivity-service-end-point-spec\": {\n                            \"otsi-config\": {\n                                \"application-identifier\": {\n                                    \"application-identifier-type\": \"\",\n                                    \"application-code\": \"\"\n                                },\n                                \"central-frequency\": {\n                                    \"central-frequency\": 0,\n                                    \"frequency-constraint\": {\n                                        \"adjustment-granularity\": \"\",\n                                        \"grid-type\": \"\"\n                                    }\n                                },\n                                \"modulation\": \"\",\n                                \"spectrum\": {\n                                    \"lower-frequency\": 0,\n                                    \"upper-frequency\": 0,\n                                    \"frequency-constraint\": {\n                                        \"adjustment-granularity\": \"\",\n                                        \"grid-type\": \"\"\n                                    }\n                                },\n                                \"laser-control\": \"\",\n                                \"total-power-warn-threshold-lower\": \"\",\n                                \"total-power-warn-threshold-upper\": \"\",\n                                \"transmit-power\": {\n                                    \"power-spectral-density\": \"\",\n                                    \"total-power\": \"\"\n                                }\n                            }\n                        }\n                    },\n                    {\n                        \"operational-state\": {\n                            \"Disable\": \"\",\n                            \"Enable\": \"\"\n                        },\n                        \"lifecycle-state\": {\n                            \"Planned\": \"\",\n                            \"PotentialAvaiable\": \"\",\n                            \"PotentialBusy\": \"\",\n                            \"Installed\": \"\",\n                            \"PendingRemoval\": \"\"\n                        },\n                        \"administrative-state\": {\n                            \"Locked\": \"\",\n                            \"Unlocked\": \"\"\n                        },\n                        \"name\": null,\n                        \"local-id\": \"\",\n                        \"protection-role\": \"\",\n                        \"role\": \"SYMMETRIC\",\n                        \"service-interface-point\": {\n                            \"service-interface-point-uuid\": \"test-ref-endpoint-z\"\n                        },\n                        \"layer-protocol-name\": \"DSR\",\n                        \"layer-protocol-qualifier\": \"tapi-dsr:DIGITAL_SIGNAL_TYPE_10_GigE_LAN\",\n                        \"connection-end-point\": null,\n                        \"direction\": \"BIDIRECTIONAL\",\n                        \"capacity\": {\n                            \"bandwidth-profile\": {\n                                \"committed-information-rate\": {\n                                    \"value\": 0,\n                                    \"unit\": \"\"\n                                },\n                                \"coupling-flag\": false,\n                                \"bw-profile-type\": \"\",\n                                \"peak-information-rate\": {\n                                    \"value\": 0,\n                                    \"unit\": \"\"\n                                },\n                                \"committed-burst-size\": {\n                                    \"value\": 0,\n                                    \"unit\": \"\"\n                                },\n                                \"peak-burst-size\": {\n                                    \"value\": 0,\n                                    \"unit\": \"\"\n                                },\n                                \"color-aware\": false\n                            },\n                            \"total-size\": {\n                                \"value\": 0,\n                                \"unit\": \"\"\n                            }\n                        },\n                        \"media-channel-service-interface-point-spec\": {\n                            \"mc-pool\": {\n                                \"available-spectrum\": null,\n                                \"supportable-spectrum\": null,\n                                \"occupied-spectrum\": null\n                            }\n                        },\n                        \"otsi-connectivity-service-end-point-spec\": {\n                            \"otsi-config\": {\n                                \"application-identifier\": {\n                                    \"application-identifier-type\": \"\",\n                                    \"application-code\": \"\"\n                                },\n                                \"central-frequency\": {\n                                    \"central-frequency\": 0,\n                                    \"frequency-constraint\": {\n                                        \"adjustment-granularity\": \"\",\n                                        \"grid-type\": \"\"\n                                    }\n                                },\n                                \"modulation\": \"\",\n                                \"spectrum\": {\n                                    \"lower-frequency\": 0,\n                                    \"upper-frequency\": 0,\n                                    \"frequency-constraint\": {\n                                        \"adjustment-granularity\": \"\",\n                                        \"grid-type\": \"\"\n                                    }\n                                },\n                                \"laser-control\": \"\",\n                                \"total-power-warn-threshold-lower\": \"\",\n                                \"total-power-warn-threshold-upper\": \"\",\n                                \"transmit-power\": {\n                                    \"power-spectral-density\": \"\",\n                                    \"total-power\": \"\"\n                                }\n                            }\n                        }\n                    }\n                ],\n                \"connection\": null\n            }\n        ],\n        \"connection\": null\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/tapi-common:context/tapi-connectivity:connectivity-context/",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"tapi-common:context",
+						"tapi-connectivity:connectivity-context",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update conn-srv by uuid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFhNTI4Y2I3LWFhNmMtNDZmMi05NWQ1LTNmOTBhMTg5ODk0YyIsInVzZXJuYW1lIjoidGVzdCIsImlzc3VlZF9hdCI6IjIwMjQtMDEtMDdUMTU6MDM6MzkuMTY4MDAwMTc0WiIsImV4cGlyZWRfYXQiOiIyMDI0LTAxLTA3VDE1OjA2OjM5LjE2ODAwMDM0MVoifQ.j3oAvSKvNTqGtUnrgmSP_NC_CUK3QsDJdNWfmQmgJkWGlhBckRy-J58L4oGS5i0OYnNew6MnuN6gbqNdiBZC70vYa5uoOtsuOzrA8zrUHDTWkD2fDpMHdOBE2tCae_yJjUGVAZrBdkdL6wWwLW0LV7Dy24P2OcOV9NEecb32f-mIDi5npDZ-KDCpIaN4N9IQAKzPuJ8C19uVZuF-ejZ5LokVTIIu_xKCWb-5r8Qo9-4I0HIaX4jDQ8zoHyB8UyEou9SAyTbb7-vDsarMMPKNVIaCVNVBhHDvnbcR0pViDrOlmbRu9AAfehxgulkgAxGO7MVH3Nfuhr80WxevKvYqwTujhOyJM2-YEHZtEeTPXf9CE2a7wyJO2_qifmrWu_yywICgBrh6TG_f5AgfT1CHcqz_nDTwxj4jVN8rjSyj-UwK9FuoPlT7AWpraiSqBOeNmkRpiFXXioRa0mf-iTBhvY5THVWV2ZRvC3iyfHnI2F4ZZMfHp9vrCxl5GiIt9Zses3kWBUNHk2RcN-Yn-Ma8vI2H6DHNjSfwWHbSTWP9so6WIdoBjXLwNbPPNQWheSCgYW5vUS2-Uo4tL4I5LIDjSpeD6c5y_WqzgwbinBnl43JamcqTUK2W0CfsUXw5h8pOtmBLHSt8f3hiZXoEpt5yLvuQR_L5MiWHNaadmziEgLM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"operational-state\": \"\",\n    \"lifecycle-state\": \"\",\n    \"administrative-state\": \"LOCKED\",\n    \"name\": [\n        {\n            \"value-name\": \"SERVICE_NAME\",\n            \"value\": \"linevo-Iskitim-100G\"\n        }\n    ],\n    \"uuid\": \"test-1\",\n    \"service-layer\": \"DSR\",\n    \"schedule\": {\n        \"end-time\": \"\",\n        \"start-time\": \"\"\n    },\n    \"connectivity-direction\": \"BIDIRECTIONAL\",\n    \"requested-capacity\": {\n        \"bandwidth-profile\": {\n            \"committed-information-rate\": {\n                \"value\": 0,\n                \"unit\": \"\"\n            },\n            \"coupling-flag\": false,\n            \"bw-profile-type\": \"\",\n            \"peak-information-rate\": {\n                \"value\": 0,\n                \"unit\": \"\"\n            },\n            \"committed-burst-size\": {\n                \"value\": 0,\n                \"unit\": \"\"\n            },\n            \"peak-burst-size\": {\n                \"value\": 0,\n                \"unit\": \"\"\n            },\n            \"color-aware\": false\n        },\n        \"total-size\": {\n            \"value\": 0,\n            \"unit\": \"\"\n        }\n    },\n    \"diversity-exclusion\": null,\n    \"service-level\": \"\",\n    \"service-type\": \"POINT_TO_POINT_CONNECTIVITY\",\n    \"coroute-inclusion\": {\n        \"connectivity-service-uuid\": \"\"\n    },\n    \"is-lock-out\": false,\n    \"MaxSwitchTimes\": 0,\n    \"restoration-coordinate-type\": \"\",\n    \"is-coordinated-switching-both-ends\": false,\n    \"hold-off-time\": 0,\n    \"is-frozen\": false,\n    \"wait-to-revert-time\": 0,\n    \"resilience-type\": {\n        \"restoration-policy\": \"\",\n        \"protection-type\": \"\"\n    },\n    \"preferred-restoration-layer\": null,\n    \"restore-priority\": 0,\n    \"reversion-mode\": \"\",\n    \"is-exclusive\": false,\n    \"diversity-policy\": \"\",\n    \"route-objective-function\": \"\",\n    \"cost-characteristic\": null,\n    \"latency-characteristic\": null,\n    \"risk-diversity-characteristic\": null,\n    \"route-direction\": \"\",\n    \"include-node\": null,\n    \"exclude-link\": null,\n    \"avoid-topology\": null,\n    \"exclude-path\": null,\n    \"include-link\": null,\n    \"preferred-transport-layer\": \"\",\n    \"exclude-node\": null,\n    \"include-topology\": null,\n    \"include-path\": null,\n    \"end-point\": [\n        {\n            \"operational-state\": {\n                \"Disable\": \"\",\n                \"Enable\": \"\"\n            },\n            \"lifecycle-state\": {\n                \"Planned\": \"\",\n                \"PotentialAvaiable\": \"\",\n                \"PotentialBusy\": \"\",\n                \"Installed\": \"\",\n                \"PendingRemoval\": \"\"\n            },\n            \"administrative-state\": {\n                \"Locked\": \"\",\n                \"Unlocked\": \"\"\n            },\n            \"name\": null,\n            \"local-id\": \"\",\n            \"protection-role\": \"\",\n            \"role\": \"SYMMETRIC\",\n            \"service-interface-point\": {\n                \"service-interface-point-uuid\": \"test-ref-endpoint-a\"\n            },\n            \"layer-protocol-name\": \"DSR\",\n            \"layer-protocol-qualifier\": \"tapi-dsr:DIGITAL_SIGNAL_TYPE_10_GigE_LAN\",\n            \"connection-end-point\": null,\n            \"direction\": \"BIDIRECTIONAL\",\n            \"capacity\": {\n                \"bandwidth-profile\": {\n                    \"committed-information-rate\": {\n                        \"value\": 0,\n                        \"unit\": \"\"\n                    },\n                    \"coupling-flag\": false,\n                    \"bw-profile-type\": \"\",\n                    \"peak-information-rate\": {\n                        \"value\": 0,\n                        \"unit\": \"\"\n                    },\n                    \"committed-burst-size\": {\n                        \"value\": 0,\n                        \"unit\": \"\"\n                    },\n                    \"peak-burst-size\": {\n                        \"value\": 0,\n                        \"unit\": \"\"\n                    },\n                    \"color-aware\": false\n                },\n                \"total-size\": {\n                    \"value\": 0,\n                    \"unit\": \"\"\n                }\n            },\n            \"media-channel-service-interface-point-spec\": {\n                \"mc-pool\": {\n                    \"available-spectrum\": null,\n                    \"supportable-spectrum\": null,\n                    \"occupied-spectrum\": null\n                }\n            },\n            \"otsi-connectivity-service-end-point-spec\": {\n                \"otsi-config\": {\n                    \"application-identifier\": {\n                        \"application-identifier-type\": \"\",\n                        \"application-code\": \"\"\n                    },\n                    \"central-frequency\": {\n                        \"central-frequency\": 0,\n                        \"frequency-constraint\": {\n                            \"adjustment-granularity\": \"\",\n                            \"grid-type\": \"\"\n                        }\n                    },\n                    \"modulation\": \"\",\n                    \"spectrum\": {\n                        \"lower-frequency\": 0,\n                        \"upper-frequency\": 0,\n                        \"frequency-constraint\": {\n                            \"adjustment-granularity\": \"\",\n                            \"grid-type\": \"\"\n                        }\n                    },\n                    \"laser-control\": \"\",\n                    \"total-power-warn-threshold-lower\": \"\",\n                    \"total-power-warn-threshold-upper\": \"\",\n                    \"transmit-power\": {\n                        \"power-spectral-density\": \"\",\n                        \"total-power\": \"\"\n                    }\n                }\n            }\n        },\n        {\n            \"operational-state\": {\n                \"Disable\": \"\",\n                \"Enable\": \"\"\n            },\n            \"lifecycle-state\": {\n                \"Planned\": \"\",\n                \"PotentialAvaiable\": \"\",\n                \"PotentialBusy\": \"\",\n                \"Installed\": \"\",\n                \"PendingRemoval\": \"\"\n            },\n            \"administrative-state\": {\n                \"Locked\": \"\",\n                \"Unlocked\": \"\"\n            },\n            \"name\": null,\n            \"local-id\": \"\",\n            \"protection-role\": \"\",\n            \"role\": \"SYMMETRIC\",\n            \"service-interface-point\": {\n                \"service-interface-point-uuid\": \"test-ref-endpoint-z\"\n            },\n            \"layer-protocol-name\": \"DSR\",\n            \"layer-protocol-qualifier\": \"tapi-dsr:DIGITAL_SIGNAL_TYPE_10_GigE_LAN\",\n            \"connection-end-point\": null,\n            \"direction\": \"BIDIRECTIONAL\",\n            \"capacity\": {\n                \"bandwidth-profile\": {\n                    \"committed-information-rate\": {\n                        \"value\": 0,\n                        \"unit\": \"\"\n                    },\n                    \"coupling-flag\": false,\n                    \"bw-profile-type\": \"\",\n                    \"peak-information-rate\": {\n                        \"value\": 0,\n                        \"unit\": \"\"\n                    },\n                    \"committed-burst-size\": {\n                        \"value\": 0,\n                        \"unit\": \"\"\n                    },\n                    \"peak-burst-size\": {\n                        \"value\": 0,\n                        \"unit\": \"\"\n                    },\n                    \"color-aware\": false\n                },\n                \"total-size\": {\n                    \"value\": 0,\n                    \"unit\": \"\"\n                }\n            },\n            \"media-channel-service-interface-point-spec\": {\n                \"mc-pool\": {\n                    \"available-spectrum\": null,\n                    \"supportable-spectrum\": null,\n                    \"occupied-spectrum\": null\n                }\n            },\n            \"otsi-connectivity-service-end-point-spec\": {\n                \"otsi-config\": {\n                    \"application-identifier\": {\n                        \"application-identifier-type\": \"\",\n                        \"application-code\": \"\"\n                    },\n                    \"central-frequency\": {\n                        \"central-frequency\": 0,\n                        \"frequency-constraint\": {\n                            \"adjustment-granularity\": \"\",\n                            \"grid-type\": \"\"\n                        }\n                    },\n                    \"modulation\": \"\",\n                    \"spectrum\": {\n                        \"lower-frequency\": 0,\n                        \"upper-frequency\": 0,\n                        \"frequency-constraint\": {\n                            \"adjustment-granularity\": \"\",\n                            \"grid-type\": \"\"\n                        }\n                    },\n                    \"laser-control\": \"\",\n                    \"total-power-warn-threshold-lower\": \"\",\n                    \"total-power-warn-threshold-upper\": \"\",\n                    \"transmit-power\": {\n                        \"power-spectral-density\": \"\",\n                        \"total-power\": \"\"\n                    }\n                }\n            }\n        }\n    ],\n    \"connection\": null\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/tapi-common:context/tapi-connectivity:connectivity-context/test-1",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"tapi-common:context",
+						"tapi-connectivity:connectivity-context",
+						"test-1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc4MmU2ZjAyLTUwNGQtNDkzYy04NjUzLWUzNTcwZTZkZTUzYSIsInVzZXJuYW1lIjoidGVzdCIsImlzc3VlZF9hdCI6IjIwMjQtMDEtMDdUMTU6MDQ6NTkuODY3NDgyNDJaIiwiZXhwaXJlZF9hdCI6IjIwMjQtMDEtMDdUMTU6MDc6NTkuODY3NDgyNTg3WiJ9.Rfvm0W8pwoFmnr3efk3tyHpegr4M0M_eZjNW-c97DPx_LQTBM4_eK_Wq95WosyZ5DzlEKV-w-4wZUm--3Is8Od50tXyVsoPzYIMPx_TpsK_KxzxcM0ncMIhRwDqPNkJbCcbEVK2NTSPG0SzMPQJXDzOJoVCkMMrXFBidlQVcD4VN54ua70VT_CqcCtcQa7ooUAAPuKUBxVu4Pk0HNFL6Hqt031zl0TspQbKIAgpNpVQyl1bSAWl4dih9GwMcyIGTf5EPLNZgplNxNG3jIgEj3jx7aQA4MCocOX6gbcbYgze-OmyZkaPjZhFwMODqhe_Vwi_7hx6pQEcKi-rvMFVMBRsjh-BphYePYp7SwdQkh13be8D-_hGjRrbCQd4s82x12TTOYpGv3otFq9ZG-7atDulAcv7N0rnGAdUDIkTirdiULkXKXTQVQO5VWTLG77qoa-64Cp_zv_iDAb6JWPkySmorPL_4bsat09fkLIH9iRkwWo2kdf329-_hfg2mD12we2pa_m2H87C1enIR9Sb4v3wdpmSyvp8N-6UIVpP0VcQ0NanXyqwmGCwUe491ND4Spc15lw4ILW1WDQsOJ8j4cFKa7nLa63giTXTNOP_65HJMTfJf6XgE2_NyYklEpFa6TPGxq4kVF2hvS8NJ3xrWR_70ZaT6_y8Frd63mcwwl7k",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
