@@ -76,46 +76,46 @@ func (*TapiCtrlInMemDB) UpdateConSrv(ctx context.Context, db *utils.InMemoryDb, 
 		return models.TapiConnectivityConnectivityService{}, ctx.Err()
 	default:
 		log.Printf("update connective-service by uuid: %s", uuid)
-		for _, connSrv := range db.TapiCommonContext.ConnectivityContext.ConnectivityService {
+		for index, connSrv := range db.TapiCommonContext.ConnectivityContext.ConnectivityService {
 			if connSrv.Uuid == uuid {
-				connSrv.AdministrativeState = data.AdministrativeState
-				connSrv.AvoidTopology = data.AvoidTopology
-				connSrv.Connection = data.Connection
-				connSrv.ConnectivityDirection = data.ConnectivityDirection
-				connSrv.CorouteInclusion = data.CorouteInclusion
-				connSrv.CostCharacteristic = data.CostCharacteristic
-				connSrv.DiversityExclusion = data.DiversityExclusion
-				connSrv.DiversityPolicy = data.DiversityPolicy
-				connSrv.Endpoint = data.Endpoint
-				connSrv.ExcludeLink = data.ExcludeLink
-				connSrv.ExcludeNode = data.ExcludeNode
-				connSrv.ExcludePath = data.ExcludePath
-				connSrv.HoldOffTime = data.HoldOffTime
-				connSrv.IsFrozen = data.IsFrozen
-				connSrv.WaitToRevertTime = data.WaitToRevertTime
-				connSrv.ResilienceType = data.ResilienceType
-				connSrv.PreferredRestorationLayer = data.PreferredRestorationLayer
-				connSrv.RestorePriority = data.RestorePriority
-				connSrv.ReversionMode = data.ReversionMode
-				connSrv.IsExclusive = data.IsExclusive
-				connSrv.DiversityPolicy = data.DiversityPolicy
-				connSrv.RouteObjectiveFunction = data.RouteObjectiveFunction
-				connSrv.CostCharacteristic = data.CostCharacteristic
-				connSrv.LatencyCharacteristic = data.LatencyCharacteristic
-				connSrv.RiskDiversityCharacteristic = data.RiskDiversityCharacteristic
-				connSrv.RouteDirection = data.RouteDirection
-				connSrv.IncludeNode = data.IncludeNode
-				connSrv.ExcludeLink = data.ExcludeLink
-				connSrv.AvoidTopology = data.AvoidTopology
-				connSrv.ExcludePath = data.ExcludePath
-				connSrv.IncludeLink = data.IncludeLink
-				connSrv.PreferredTransportLayer = data.PreferredTransportLayer
-				connSrv.ExcludeNode = data.ExcludeNode
-				connSrv.IncludeTopology = data.IncludeTopology
-				connSrv.IncludePath = data.IncludePath
-				connSrv.Endpoint = data.Endpoint
-				connSrv.Connection = data.Connection
-				return connSrv, nil
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].AdministrativeState = data.AdministrativeState
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].AvoidTopology = data.AvoidTopology
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].Connection = data.Connection
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].ConnectivityDirection = data.ConnectivityDirection
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].CorouteInclusion = data.CorouteInclusion
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].CostCharacteristic = data.CostCharacteristic
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].DiversityExclusion = data.DiversityExclusion
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].DiversityPolicy = data.DiversityPolicy
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].Endpoint = data.Endpoint
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].ExcludeLink = data.ExcludeLink
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].ExcludeNode = data.ExcludeNode
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].ExcludePath = data.ExcludePath
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].HoldOffTime = data.HoldOffTime
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].IsFrozen = data.IsFrozen
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].WaitToRevertTime = data.WaitToRevertTime
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].ResilienceType = data.ResilienceType
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].PreferredRestorationLayer = data.PreferredRestorationLayer
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].RestorePriority = data.RestorePriority
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].ReversionMode = data.ReversionMode
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].IsExclusive = data.IsExclusive
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].DiversityPolicy = data.DiversityPolicy
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].RouteObjectiveFunction = data.RouteObjectiveFunction
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].CostCharacteristic = data.CostCharacteristic
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].LatencyCharacteristic = data.LatencyCharacteristic
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].RiskDiversityCharacteristic = data.RiskDiversityCharacteristic
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].RouteDirection = data.RouteDirection
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].IncludeNode = data.IncludeNode
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].ExcludeLink = data.ExcludeLink
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].AvoidTopology = data.AvoidTopology
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].ExcludePath = data.ExcludePath
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].IncludeLink = data.IncludeLink
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].PreferredTransportLayer = data.PreferredTransportLayer
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].ExcludeNode = data.ExcludeNode
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].IncludeTopology = data.IncludeTopology
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].IncludePath = data.IncludePath
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].Endpoint = data.Endpoint
+				db.TapiCommonContext.ConnectivityContext.ConnectivityService[index].Connection = data.Connection
+				return db.TapiCommonContext.ConnectivityContext.ConnectivityService[index], nil
 			}
 		}
 		return models.TapiConnectivityConnectivityService{}, errors.New(ConnSrvNotFound)

@@ -718,6 +718,13 @@ func TestUpdateConSrvRoute(t *testing.T) {
 				json.Unmarshal(byteValue, &resObject)
 				require.NotEmpty(t, resObject)
 				require.Equal(t, inputData.AdministrativeState, resObject.AdministrativeState)
+
+				tapiCtrl := new(controllers.TapiCtrlInMemDB)
+				resConSrv, err := tapiCtrl.GetConSrv(context.Background(), inMemoryDB, uuid)
+				require.NoError(t, err)
+
+				require.Equal(t, inputData.AdministrativeState, resConSrv.AdministrativeState)
+
 			},
 		},
 		{

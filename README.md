@@ -31,6 +31,15 @@
 ### token: "eyJpZCI6IjU0NTE2NTM2LWI3MWYtNDQyNy...."
 ### token expired after 180s
 
+### Get start
+1. clone repo
+2. make build-docker
+3. make docker-deploy
+
+### See smaple of docker compose in docker-compose.yml
+### See postman collection on tapi mock.postman_collection.json
+
+
 
 
 
